@@ -4,7 +4,7 @@
     "y": "^0.3.2"
   },
   "scripts": {
-    "start": "nodemon server",
-    "getData": "node mockData"
+    "start": "node mockData.js && nodemon server.js"
+  
   }
 }
