@@ -1,25 +1,33 @@
 const http = require('http');
-
+const fs = require('fs');
 const PORT = 3000;
 
+
 const server = http.createServer((req, res) => {
-    console.log('Server request123');
-    console.log(req.url)//, req.method);
-    //console.log(GET)
-
-    res.setHeader('Content-Type', 'text/plain')
+    console.log('Server request');
+    console.log(req.url, req.method);
 
 
-    const url = req.url
+    const url = req.url;
+
     if(url === '/photos'){
-       // res.write('Hello photos');
-        res.end('Hello photos'); 
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'text/plain, charset=utf-8;')
+        fs.readFile("mockData.txt", function(error,data){
+            if(error) {
+                return console.log(error);
+            }
+            res.end(data);
+        });
+
     } else {
         res.write('Hello world');
-        res.end();
+        res.end('');
     }
 });
 
 server.listen(PORT, 'localhost', (error) => {
     error ? console.log(error) : console.log(`listening port ${PORT}`);
 });
+
+
