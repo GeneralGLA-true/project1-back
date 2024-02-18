@@ -136,8 +136,19 @@ function getComentsArray () {
 mockArrayFiller();
 
 const fs = require('fs');
+const mockFile = 'mockData.txt';
 
-fs.writeFile('mockData.txt', JSON.stringify(mockArray), function (err) {
-    if (err) throw err;
-    console.log('Saved!');
-  });
+fs.access(mockFile, fs.constants.F_OK, (err) => {
+  if (err) {
+    console.error('Файл не існує');
+
+    fs.writeFile('mockData.txt', JSON.stringify(mockArray), function (err) {
+      if (err) throw err;
+      console.log('Створено новий файл');
+    });
+      return;
+  };
+  console.log('Файл існує');
+}); 
+
+
